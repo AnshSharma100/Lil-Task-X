@@ -1,0 +1,25 @@
+.logo-container {
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+
+.logo-image {
+  height: 40px;
+  width: auto;
+  border-radius: 8px;
+  filter: drop-shadow(0 0 8px rgba(0, 167, 157, 0.6));
+  transition: all 0.3s ease;
+}
+
+.logo-container:hover .logo-image {
+  filter: drop-shadow(0 0 12px rgba(0, 167, 157, 0.9));
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .logo-image {
+    height: 32px;
+  }
+}
+

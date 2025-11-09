@@ -1,0 +1,243 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  background: rgba(0, 0, 0, 0.95);
+  border: 2px solid #00a79d;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 
+    0 0 30px rgba(0, 167, 157, 0.6),
+    0 0 60px rgba(0, 167, 157, 0.4),
+    inset 0 0 20px rgba(0, 167, 157, 0.1);
+  animation: slideUp 0.3s ease;
+  position: relative;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(0, 167, 157, 0.3);
+}
+
+.modal-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+  text-shadow: 0 0 10px rgba(0, 167, 157, 0.5);
+}
+
+.modal-close {
+  background: transparent;
+  border: 2px solid #00a79d;
+  color: #ffffff;
+  font-size: 1.5rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  line-height: 1;
+  padding: 0;
+}
+
+.modal-close:hover {
+  background: rgba(0, 167, 157, 0.2);
+  box-shadow: 0 0 15px rgba(0, 167, 157, 0.5);
+  transform: rotate(90deg);
+}
+
+.product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  color: #cbd5e1;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.form-input,
+.form-textarea {
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(0, 167, 157, 0.3);
+  border-radius: 6px;
+  padding: 0.75rem;
+  color: #ffffff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: #00a79d;
+  box-shadow: 
+    0 0 15px rgba(0, 167, 157, 0.4),
+    inset 0 0 10px rgba(0, 167, 157, 0.1);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.file-upload-wrapper {
+  position: relative;
+}
+
+.file-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.file-label {
+  display: block;
+  padding: 0.75rem;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px dashed rgba(0, 167, 157, 0.3);
+  border-radius: 6px;
+  color: #94a3b8;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.file-label:hover {
+  border-color: #00a79d;
+  background: rgba(0, 167, 157, 0.05);
+  color: #ffffff;
+}
+
+.file-input:focus + .file-label {
+  border-color: #00a79d;
+  box-shadow: 0 0 15px rgba(0, 167, 157, 0.4);
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(0, 167, 157, 0.3);
+}
+
+.btn-cancel,
+.btn-analyze {
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 2px solid;
+}
+
+.btn-cancel {
+  background: transparent;
+  border-color: rgba(148, 163, 184, 0.5);
+  color: #94a3b8;
+}
+
+.btn-cancel:hover {
+  border-color: #94a3b8;
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(148, 163, 184, 0.3);
+}
+
+.btn-analyze {
+  background: transparent;
+  border-color: #00a79d;
+  color: #00a79d;
+  box-shadow: 0 0 15px rgba(0, 167, 157, 0.4);
+}
+
+.btn-analyze:hover {
+  background: rgba(0, 167, 157, 0.1);
+  box-shadow: 
+    0 0 25px rgba(0, 167, 157, 0.8),
+    0 0 50px rgba(0, 167, 157, 0.6);
+  transform: translateY(-2px);
+}
+
+.btn-analyze:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    padding: 1.5rem;
+    width: 95%;
+  }
+
+  .modal-title {
+    font-size: 1.5rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .btn-cancel,
+  .btn-analyze {
+    width: 100%;
+  }
+}
+
