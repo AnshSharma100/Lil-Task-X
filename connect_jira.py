@@ -1,26 +1,58 @@
 import json
 import os
+import sys
+import logging
+import argparse
 import requests
 import smtplib
 from email.mime.text import MIMEText
-import argparse
-import logging
+from dotenv import load_dotenv
 
-# --- Jira + Email Config ---
-JIRA_BASE_URL   = os.getenv("JIRA_BASE_URL", "https://jasleenkaurbhui.atlassian.net")
-JIRA_PROJECT_KEY = os.getenv("JIRA_PROJECT_KEY") 
-JIRA_ISSUE_TYPE  = os.getenv("JIRA_ISSUE_TYPE", "Task")
-JIRA_USERNAME   = os.getenv("JIRA_USERNAME", "jasleen.kaur.bhui@gmail.com")
-JIRA_API_TOKEN  = os.getenv("JIRA_API_TOKEN", "ATATT3xFfGF0O6_QlElbe3E3bj6TkQN7pTV_mpG2L0Rm6WW5uxV9Deu--sXLz_14D_lWSTuhk6zuVcKWs3YYRo0iHiHyZLYUnikl9xWshBIGK-kH7U0E78XgDsTHQXfLKiru-PAu9lIyYVr-oy9VxM2vrccPCFJe0NlGxu-nu1FnkAT0MS_uG60=83DD7C9E")
-
-SMTP_HOST       = os.getenv("SMTP_HOST", "smtp.gmail.com")
-SMTP_PORT       = int(os.getenv("SMTP_PORT", "587"))
-SMTP_USERNAME   = os.getenv("SMTP_USERNAME", "jasleen.kaur.bhui@gmail.com")
-SMTP_PASSWORD   = os.getenv("SMTP_PASSWORD")
-EMAIL_FROM      = os.getenv("EMAIL_FROM", SMTP_USERNAME)
-
+# Initialize logging first, before anything else
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("auto-assign")
+
+# Then load environment variables
+load_dotenv()
+
+# Log after logger is initialized
+logger.info(f"Loaded JIRA_BASE_URL: {os.getenv('JIRA_BASE_URL')}")
+
+# Validate required environment variables
+def validate_env_vars():
+    required_vars = ['JIRA_BASE_URL', 'JIRA_API_TOKEN', 'JIRA_USERNAME']
+    missing_vars = [var for var in required_vars if not os.getenv(var)]
+    if missing_vars:
+        print(f"Error: Missing required environment variables: {', '.join(missing_vars)}")
+        print("Please ensure these variables are set in your .env file")
+        sys.exit(1)
+
+# Call validation before making any API calls
+validate_env_vars()
+
+# --- Jira + Email Config ---
+JIRA_BASE_URL = os.getenv("JIRA_BASE_URL")
+JIRA_PROJECT_KEY = os.getenv("JIRA_PROJECT_KEY")
+JIRA_ISSUE_TYPE = os.getenv("JIRA_ISSUE_TYPE")
+JIRA_USERNAME = os.getenv("JIRA_USERNAME")
+JIRA_API_TOKEN = os.getenv("JIRA_API_TOKEN")
+
+SMTP_HOST = os.getenv("SMTP_HOST")
+SMTP_PORT = os.getenv("SMTP_PORT")
+SMTP_USERNAME = os.getenv("SMTP_USERNAME")
+SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
+EMAIL_FROM = os.getenv("EMAIL_FROM", SMTP_USERNAME)
+
+# Check for missing critical environment variables
+if not JIRA_BASE_URL:
+    raise EnvironmentError("JIRA_BASE_URL is missing or invalid. Check your .env file.")
+if not JIRA_USERNAME or not JIRA_API_TOKEN:
+    raise EnvironmentError("Missing required Jira credentials. Check your .env file.")
+
+if not SMTP_HOST or not SMTP_PORT or not SMTP_USERNAME or not SMTP_PASSWORD:
+    raise EnvironmentError("Missing required SMTP environment variables. Check your .env file.")
+
+SMTP_PORT = int(SMTP_PORT)  # Convert SMTP_PORT to integer after validation
 
 # --- Helpers ---
 def load_json(file_path):
