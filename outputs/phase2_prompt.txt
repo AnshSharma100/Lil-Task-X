@@ -1,0 +1,790 @@
+You are a programme delivery agent collaborating with engineering leadership.
+Follow ReAct methodology: plan, call tools, verify, then answer.
+Always cite sources or CSV rows when making claims about cost or staffing.
+Do not produce output until all calculations are validated.
+
+PRD:
+# Product Requirements Document: Habit Tracker
+
+## Overview
+This document outlines the requirements for a simple and intuitive habit tracking application for mobile and web. The goal is to provide a user-friendly experience that helps users build positive habits and achieve their goals.
+
+## Problem
+Existing habit tracking solutions are often complex and overwhelming, leading to user frustration and abandonment. Users need a simpler, more engaging way to track their habits and visualize their progress.
+
+## Goals
+*   Increase user engagement with daily habit tracking.
+*   Improve user adherence to planned habits.
+*   Provide a clear and motivating visualization of progress.
+
+## Personas
+*   **Sarah:** A busy professional who wants to establish healthy habits but struggles to stay consistent.
+*   **David:** A student who wants to improve their study habits and time management skills.
+
+## Solution
+Our habit tracker will offer a clean and modern interface with intuitive features for creating, tracking, and visualizing habits. Key features include customizable reminders, progress charts, and a simple, uncluttered design.
+
+## Roadmap
+*   **Phase 1 (2-3 Months):** Core habit tracking functionality (mobile app and web dashboard), reminders, and basic progress charts.
+*   **Phase 2 (Future):** Social features (sharing progress, accountability partners).
+
+## Success Metrics
+*   Daily Active Users (DAU)
+*   Habit Completion Rate
+*   User Retention Rate
+
+## Risks
+*   **Development delays:** May impact the launch timeline. Mitigation: Agile development, prioritize core features. Owner: Engineering [ref_1].
+*   **Low user adoption:** The app may not resonate with the target audience. Mitigation: User testing, iterative design improvements. Owner: Product [ref_1].
+
+
+Team & Budget Context:
+{
+  "team": [
+    {
+      "name": "Ava Chen",
+      "role": "Senior Frontend Engineer",
+      "experience": "Senior",
+      "skills": [
+        "frontend",
+        "react",
+        "typescript",
+        "uiux",
+        "css"
+      ],
+      "hourly_rate": 85.0,
+      "email": "serintemc@gmail.com"
+    },
+    {
+      "name": "Daniel Lee",
+      "role": "Mid Backend Engineer",
+      "experience": "Mid",
+      "skills": [
+        "backend",
+        "nodejs",
+        "python",
+        "api",
+        "databases"
+      ],
+      "hourly_rate": 60.0,
+      "email": "serintemc@gmail.com"
+    },
+    {
+      "name": "Isha Patel",
+      "role": "Junior Fullstack Engineer",
+      "experience": "Junior",
+      "skills": [
+        "react",
+        "javascript",
+        "html",
+        "css",
+        "basic-backend"
+      ],
+      "hourly_rate": 35.0,
+      "email": "serintemc@gmail.com"
+    },
+    {
+      "name": "Marcus Wright",
+      "role": "Senior Backend Engineer",
+      "experience": "Senior",
+      "skills": [
+        "backend",
+        "python",
+        "golang",
+        "architecture",
+        "databases"
+      ],
+      "hourly_rate": 95.0,
+      "email": "serintemc@gmail.com"
+    },
+    {
+      "name": "Sofia Martinez",
+      "role": "DevOps Engineer",
+      "experience": "Mid",
+      "skills": [
+        "ci/cd",
+        "aws",
+        "docker",
+        "kubernetes",
+        "monitoring"
+      ],
+      "hourly_rate": 70.0,
+      "email": "serintemc@gmail.com"
+    },
+    {
+      "name": "Ethan Brooks",
+      "role": "Mid Frontend Engineer",
+      "experience": "Mid",
+      "skills": [
+        "react",
+        "nextjs",
+        "typescript",
+        "css"
+      ],
+      "hourly_rate": 55.0,
+      "email": "serintemc@gmail.com"
+    },
+    {
+      "name": "Liam Turner",
+      "role": "Senior Mobile Engineer",
+      "experience": "Senior",
+      "skills": [
+        "flutter",
+        "swift",
+        "kotlin",
+        "mobile-architecture"
+      ],
+      "hourly_rate": 90.0,
+      "email": "serintemc@gmail.com"
+    },
+    {
+      "name": "Chloe Nguyen",
+      "role": "Junior Web Developer",
+      "experience": "Junior",
+      "skills": [
+        "html",
+        "css",
+        "javascript",
+        "bootstrap"
+      ],
+      "hourly_rate": 30.0,
+      "email": "serintemc@gmail.com"
+    },
+    {
+      "name": "Noah Kim",
+      "role": "ML Engineer",
+      "experience": "Mid",
+      "skills": [
+        "pytorch",
+        "tensorflow",
+        "mlops",
+        "data-processing"
+      ],
+      "hourly_rate": 75.0,
+      "email": "serintemc@gmail.com"
+    },
+    {
+      "name": "Layla Adams",
+      "role": "Senior Data Engineer",
+      "experience": "Senior",
+      "skills": [
+        "etl",
+        "spark",
+        "databases",
+        "cloud-data"
+      ],
+      "hourly_rate": 100.0,
+      "email": "serintemc@gmail.com"
+    },
+    {
+      "name": "Raj Kumar",
+      "role": "Backend Engineer",
+      "experience": "Mid",
+      "skills": [
+        "java",
+        "spring",
+        "postgres",
+        "rest-apis"
+      ],
+      "hourly_rate": 65.0,
+      "email": "serintemc@gmail.com"
+    },
+    {
+      "name": "Hannah Foster",
+      "role": "Frontend Engineer",
+      "experience": "Junior",
+      "skills": [
+        "react",
+        "css",
+        "figma"
+      ],
+      "hourly_rate": 40.0,
+      "email": "serintemc@gmail.com"
+    },
+    {
+      "name": "Dylan Cooper",
+      "role": "Security Engineer",
+      "experience": "Senior",
+      "skills": [
+        "security",
+        "auditing",
+        "penetration-testing",
+        "iam"
+      ],
+      "hourly_rate": 105.0,
+      "email": "serintemc@gmail.com"
+    },
+    {
+      "name": "Mia Zhang",
+      "role": "Junior DevOps",
+      "experience": "Junior",
+      "skills": [
+        "docker",
+        "linux",
+        "ci"
+      ],
+      "hourly_rate": 32.0,
+      "email": "serintemc@gmail.com"
+    },
+    {
+      "name": "Omar Haddad",
+      "role": "Senior Fullstack Engineer",
+      "experience": "Senior",
+      "skills": [
+        "react",
+        "nodejs",
+        "aws",
+        "architecture"
+      ],
+      "hourly_rate": 110.0,
+      "email": "serintemc@gmail.com"
+    },
+    {
+      "name": "Natalie Price",
+      "role": "Mid Mobile Engineer",
+      "experience": "Mid",
+      "skills": [
+        "flutter",
+        "dart",
+        "swift"
+      ],
+      "hourly_rate": 58.0,
+      "email": "serintemc@gmail.com"
+    },
+    {
+      "name": "Jaden Scott",
+      "role": "Software Engineer",
+      "experience": "Junior",
+      "skills": [
+        "python",
+        "java",
+        "testing"
+      ],
+      "hourly_rate": 33.0,
+      "email": "serintemc@gmail.com"
+    },
+    {
+      "name": "Emily Rivera",
+      "role": "Cloud Engineer",
+      "experience": "Mid",
+      "skills": [
+        "aws",
+        "terraform",
+        "containers"
+      ],
+      "hourly_rate": 72.0,
+      "email": "serintemc@gmail.com"
+    },
+    {
+      "name": "Isaac Davis",
+      "role": "Senior API Engineer",
+      "experience": "Senior",
+      "skills": [
+        "api",
+        "architecture",
+        "python",
+        "nodejs"
+      ],
+      "hourly_rate": 98.0,
+      "email": "serintemc@gmail.com"
+    },
+    {
+      "name": "Grace Lee",
+      "role": "Junior ML Engineer",
+      "experience": "Junior",
+      "skills": [
+        "python",
+        "ml",
+        "sklearn"
+      ],
+      "hourly_rate": 38.0,
+      "email": "serintemc@gmail.com"
+    },
+    {
+      "name": "Qasim Patel",
+      "role": "QA Automation Engineer",
+      "experience": "Senior",
+      "skills": [
+        "qa",
+        "automation",
+        "selenium",
+        "api-testing",
+        "ci/cd"
+      ],
+      "hourly_rate": 50.0,
+      "email": "sharmaansh1705@gmail.com"
+    },
+    {
+      "name": "Maya Rodriguez",
+      "role": "Manual QA Tester",
+      "experience": "Junior",
+      "skills": [
+        "qa",
+        "manual-testing",
+        "ui-testing"
+      ],
+      "hourly_rate": 25.0,
+      "email": "sharmaansh1705@gmail.com"
+    },
+    {
+      "name": "Leo Fernandez",
+      "role": "Senior QA Engineer",
+      "experience": "Senior",
+      "skills": [
+        "automation",
+        "performance-testing",
+        "security-testing"
+      ],
+      "hourly_rate": 60.0,
+      "email": "sharmaansh1705@gmail.com"
+    },
+    {
+      "name": "Sarah Carter",
+      "role": "QA Tester",
+      "experience": "Mid",
+      "skills": [
+        "manual-testing",
+        "api-testing"
+      ],
+      "hourly_rate": 35.0,
+      "email": "sharmaansh1705@gmail.com"
+    },
+    {
+      "name": "Victor Huang",
+      "role": "Load Testing Engineer",
+      "experience": "Mid",
+      "skills": [
+        "jmeter",
+        "load-testing",
+        "performance"
+      ],
+      "hourly_rate": 45.0,
+      "email": "sharmaansh1705@gmail.com"
+    },
+    {
+      "name": "Ananya Singh",
+      "role": "Junior QA",
+      "experience": "Junior",
+      "skills": [
+        "manual-testing",
+        "regression"
+      ],
+      "hourly_rate": 22.0,
+      "email": "sharmaansh1705@gmail.com"
+    },
+    {
+      "name": "Jacob Brown",
+      "role": "QA Automation Engineer",
+      "experience": "Mid",
+      "skills": [
+        "selenium",
+        "pytest",
+        "ci"
+      ],
+      "hourly_rate": 40.0,
+      "email": "sharmaansh1705@gmail.com"
+    },
+    {
+      "name": "Emma Sullivan",
+      "role": "UX Tester",
+      "experience": "Junior",
+      "skills": [
+        "ui-testing",
+        "ux-review"
+      ],
+      "hourly_rate": 23.0,
+      "email": "sharmaansh1705@gmail.com"
+    },
+    {
+      "name": "Harper Wilson",
+      "role": "Mobile QA Engineer",
+      "experience": "Mid",
+      "skills": [
+        "appium",
+        "mobile-testing"
+      ],
+      "hourly_rate": 42.0,
+      "email": "sharmaansh1705@gmail.com"
+    },
+    {
+      "name": "Aiden Ramirez",
+      "role": "Senior Automation Lead",
+      "experience": "Senior",
+      "skills": [
+        "automation",
+        "framework-design",
+        "ci/cd"
+      ],
+      "hourly_rate": 70.0,
+      "email": "sharmaansh1705@gmail.com"
+    }
+  ],
+  "budget": {
+    "engineering_budget": 120000.0,
+    "qa_budget": 40000.0,
+    "cloud_budget": 30000.0,
+    "licensing_budget": 15000.0,
+    "gemini_available": false,
+    "gemini_monthly_cost": 100.0,
+    "firebase_monthly_cost": 50.0,
+    "security_budget": 10000.0,
+    "training_budget": 5000.0,
+    "contingency_reserve": 8000.0,
+    "total_budget_available": 228000.0,
+    "raw_lines": [
+      {
+        "resource": "Engineering Budget (USD)",
+        "value": "120000"
+      },
+      {
+        "resource": "QA Budget (USD)",
+        "value": "40000"
+      },
+      {
+        "resource": "Cloud Services Budget (USD)",
+        "value": "30000"
+      },
+      {
+        "resource": "Licensing & Tools Budget (USD)",
+        "value": "15000"
+      },
+      {
+        "resource": "Gemini API Available",
+        "value": "False"
+      },
+      {
+        "resource": "Gemini API Monthly Cost (USD)",
+        "value": "100"
+      },
+      {
+        "resource": "Firebase Auth Monthly Cost (USD)",
+        "value": "50"
+      },
+      {
+        "resource": "Security/Compliance Budget (USD)",
+        "value": "10000"
+      },
+      {
+        "resource": "Training & Upskilling Budget (USD)",
+        "value": "5000"
+      },
+      {
+        "resource": "Emergency Contingency Reserve (USD)",
+        "value": "8000"
+      }
+    ]
+  },
+  "product_spec": {
+    "summary": "A simple habit tracker mobile app and web dashboard to help users build positive habits through reminders and progress visualization. Focus is on ease of use and a clean, modern design.",
+    "personas": [
+      {
+        "name": "Sarah",
+        "goals": "Establish healthy habits and stay consistent.",
+        "frustrations": "Busy schedule, difficulty staying motivated."
+      },
+      {
+        "name": "David",
+        "goals": "Improve study habits and time management.",
+        "frustrations": "Procrastination, lack of structure."
+      }
+    ],
+    "journey": "User creates habit -> User receives reminder -> User completes habit -> User views progress chart. Success metric: Habit completion rate.",
+    "features": [
+      {
+        "name": "Habit Creation",
+        "priority": "High",
+        "description": "Allow users to create new habits with custom names, descriptions, and frequency.",
+        "acceptance_criteria": "Users can create habits with various frequencies (daily, weekly, monthly).",
+        "effort_estimate": "M",
+        "linked_evidence_refs": []
+      },
+      {
+        "name": "Reminders",
+        "priority": "High",
+        "description": "Send users reminders to complete their habits at scheduled times.",
+        "acceptance_criteria": "Users receive timely reminders on their mobile devices and via email.",
+        "effort_estimate": "M",
+        "linked_evidence_refs": []
+      },
+      {
+        "name": "Progress Visualization",
+        "priority": "High",
+        "description": "Display user progress with simple charts and graphs.",
+        "acceptance_criteria": "Users can view their habit completion rate over time.",
+        "effort_estimate": "M",
+        "linked_evidence_refs": []
+      },
+      {
+        "name": "Web Dashboard",
+        "priority": "Medium",
+        "description": "Provide a web-based dashboard for users to view and manage their habits.",
+        "acceptance_criteria": "Users can access all features from the web dashboard.",
+        "effort_estimate": "L",
+        "linked_evidence_refs": []
+      }
+    ],
+    "rollout": "Phase 1 (2-3 months): Core functionality. Phase 2 (Future): Social features.",
+    "risks": [
+      {
+        "name": "Development Delays",
+        "mitigations": "Agile development, prioritize core features.",
+        "owner": "Engineering"
+      },
+      {
+        "name": "Low User Adoption",
+        "mitigations": "User testing, iterative design improvements.",
+        "owner": "Product"
+      }
+    ],
+    "kpis": [
+      {
+        "name": "Daily Active Users (DAU)",
+        "target_metric": "Increase DAU by 20% month-over-month.",
+        "measurement_cadence": "Monthly"
+      },
+      {
+        "name": "Habit Completion Rate",
+        "target_metric": "Achieve an average habit completion rate of 75%.",
+        "measurement_cadence": "Weekly"
+      },
+      {
+        "name": "User Retention Rate",
+        "target_metric": "Maintain a user retention rate of 50% after 30 days.",
+        "measurement_cadence": "Monthly"
+      }
+    ],
+    "open_questions": [
+      "What are the specific target demographics for this application?",
+      "What are the detailed requirements for the social features in Phase 2?",
+      "What are the specific metrics for TAM, SAM, and SOM?"
+    ],
+    "evidence_refs": [
+      "ref_1"
+    ]
+  }
+}
+
+Directive JSON:
+{
+  "objective": "Transform the PRD into a staffed 12-week delivery plan with budget coverage.",
+  "inputs": {
+    "prd_markdown": "outputs/phase1_product_spec.md",
+    "team_csvs": [
+      "data/developers_with_email.csv",
+      "data/testers_with_email.csv"
+    ],
+    "budget_csv": "data/company_budget.csv",
+    "timeframe_weeks": 12
+  },
+  "required_tools": [
+    "load_csv",
+    "task_splitter",
+    "budget_calculator",
+    "jira_uploader",
+    "pdf_generator"
+  ],
+  "output_schema": {
+    "features": [
+      {
+        "name": "string",
+        "description": "string",
+        "priority": "P0|P1|P2"
+      }
+    ],
+    "stories": [
+      {
+        "id": "STO-001",
+        "feature": "string",
+        "persona": "string",
+        "summary": "string",
+        "acceptance_criteria": [
+          "string"
+        ],
+        "risk_level": "Low|Medium|High"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "TASK-001",
+        "feature": "string",
+        "story_id": "STO-001",
+        "title": "string",
+        "description": "string",
+        "assignee": "string",
+        "estimated_hours": "number",
+        "salary_cost": "number",
+        "dependencies": [
+          "TASK-###"
+        ],
+        "sprint": "integer",
+        "risk_level": "Low|Medium|High"
+      }
+    ],
+    "assignments": {
+      "person": {
+        "total_hours": "number",
+        "total_cost": "number",
+        "capacity_warning": "string"
+      }
+    },
+    "budget_report": {
+      "engineering_cost": "number",
+      "qa_cost": "number",
+      "tools_cost": "number",
+      "total_cost": "number",
+      "baseline_budget": {
+        "engineering_budget": 120000.0,
+        "qa_budget": 40000.0,
+        "cloud_budget": 30000.0,
+        "licensing_budget": 15000.0,
+        "gemini_available": false,
+        "gemini_monthly_cost": 100.0,
+        "firebase_monthly_cost": 50.0,
+        "security_budget": 10000.0,
+        "training_budget": 5000.0,
+        "contingency_reserve": 8000.0,
+        "total_budget_available": 228000.0
+      },
+      "categories": "{name: amount}"
+    },
+    "plan_overview": {
+      "timeline": {
+        "phase": "string",
+        "duration_weeks": "number",
+        "milestones": [
+          "string"
+        ]
+      },
+      "resource_plan": {
+        "engineering_hours": "number",
+        "qa_hours": "number",
+        "design_hours": "number",
+        "other_hours": "number",
+        "allocation_by_person": {
+          "name": "hours"
+        }
+      },
+      "budget_summary": {
+        "baseline_budget": "number",
+        "planned_spend": "number",
+        "variance": "number",
+        "runway_weeks": "number"
+      },
+      "risk_register": [
+        {
+          "risk": "string",
+          "owner": "string",
+          "mitigation": "string"
+        }
+      ]
+    },
+    "report": {
+      "executive_summary": "string",
+      "quantitative_highlights": {
+        "total_tasks": "number",
+        "total_hours": "number",
+        "total_cost": "number",
+        "per_sprint_capacity": {
+          "sprint": "hours"
+        }
+      },
+      "chart_data": {
+        "budget_pie": {
+          "categories": "{name: amount}"
+        },
+        "resource_allocation": {
+          "by_person": "{name: hours}"
+        }
+      },
+      "budget_statements": [
+        "string"
+      ],
+      "task_breakdown": [
+        {
+          "team": "string",
+          "hours": "number",
+          "cost": "number"
+        }
+      ]
+    },
+    "sign_off": {
+      "approver": "string",
+      "role": "string",
+      "decision": "approved|approved_with_risks|revisions_required",
+      "justification": "string",
+      "date": "YYYY-MM-DD"
+    },
+    "decision_recommendations": {
+      "status": "feasible|over_budget|over_capacity",
+      "summary": "string",
+      "actions": [
+        "increase_budget|extend_timeline|reduce_scope"
+      ],
+      "notes": [
+        "string"
+      ]
+    },
+    "delivery_options": [
+      {
+        "option": "string",
+        "feasibility": "green|yellow|red",
+        "description": "string",
+        "budget_delta": "number",
+        "timeline_delta_weeks": "number",
+        "scope_changes": [
+          "string"
+        ],
+        "staffing_changes": [
+          "string"
+        ]
+      }
+    ],
+    "jira_payload": [
+      {
+        "issue_type": "Epic|Story|Task",
+        "epic": "string",
+        "title": "string",
+        "story": "string",
+        "description": "string",
+        "assignee": "email",
+        "labels": [
+          "string"
+        ],
+        "estimate": "number",
+        "due_date": "YYYY-MM-DD"
+      }
+    ],
+    "email_notifications": [
+      {
+        "to": "email",
+        "subject": "string",
+        "body": "string"
+      }
+    ],
+    "repo_watchlist": [
+      "string"
+    ],
+    "narrative_summary": "string"
+  },
+  "constraints": [
+    "Temperature 0, top_p 0.1.",
+    "Reference PRD sections when deriving tasks.",
+    "Check workload per person <= 160 hours.",
+    "Cross-check budget math with the provided CSV data using budget_calculator tool.",
+    "Flag any scope that triggers over-budget or over-time.",
+    "Provide three delivery_options: on_track, needs_more_budget_or_time, reduce_scope.",
+    "If budget or capacity is negative, reflect that in decision_recommendations and delivery_options.",
+    "Populate plan_overview and report with concrete numbers - no placeholders.",
+    "chart_data.budget_pie.categories MUST sum to the total_cost in budget_report.",
+    "chart_data.resource_allocation.by_person MUST align with assignments and tasks.",
+    "Jira issues must be human-friendly and map to tasks; include acceptance hints in descriptions.",
+    "jira_payload must include epic linkage plus title/story/assignee fields for import.",
+    "Email notifications should brief assignees or stakeholders in a friendly yet concise tone.",
+    "Repo_watchlist must call out specs to verify later (colour themes, feature toggles, etc.).",
+    "Keep string fields single-line when possible; embed explicit \\n markers if multi-line text is required.",
+    "Do not wrap the final JSON in triple backticks or any fence.",
+    "Return only valid JSON with no additional commentary.",
+    "Return JSON only\u2014no markdown fences."
+  ],
+  "final_response": "Return the JSON structure exactly as specified plus any supporting references."
+}

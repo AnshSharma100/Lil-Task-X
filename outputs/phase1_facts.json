@@ -1,0 +1,68 @@
+{
+  "facts": {
+    "competitors": [
+      {
+        "name": "Habitica",
+        "summary": "A free habit and productivity app that treats your real life like a game, using retro RPG elements to gamify tasks and goals.",
+        "differentiators": [
+          "Gamification of tasks",
+          "Retro RPG elements"
+        ],
+        "gaps": [],
+        "sources": [
+          "https://habitica.com/",
+          "https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica&hl=en_US",
+          "https://apps.apple.com/us/app/habitica-gamified-taskmanager/id994882113"
+        ]
+      },
+      {
+        "name": "Todoist",
+        "summary": "A task manager and to-do list app trusted by millions, designed to simplify tasks for individuals and teams.",
+        "differentiators": [
+          "Task management",
+          "Team collaboration"
+        ],
+        "gaps": [],
+        "sources": [
+          "https://www.todoist.com/",
+          "https://chromewebstore.google.com/detail/todoist-for-chrome-planne/jldhpllghnbhlbpcmnajkpdmadaolakh",
+          "https://play.google.com/store/apps/details?id=com.todoist&hl=en_US",
+          "https://apps.apple.com/us/app/todoist-to-do-list-calendar/id572688855"
+        ]
+      },
+      {
+        "name": "Notion",
+        "summary": "An AI workspace where teams get more done, offering tools for notes, tasks, project management, and more, all in one place.",
+        "differentiators": [
+          "All-in-one workspace",
+          "AI integration"
+        ],
+        "gaps": [],
+        "sources": [
+          "https://www.notion.com/",
+          "https://apps.apple.com/us/app/notion-notes-tasks-ai/id1232780281",
+          "https://play.google.com/store/apps/details?id=notion.id&hl=en_US"
+        ]
+      }
+    ],
+    "user_needs": [
+      "Simple and easy-to-use habit tracking",
+      "Reminders to stay on track",
+      "Progress visualization",
+      "Habit building assistance"
+    ],
+    "market_ranges": {
+      "tam_range": "Unknown",
+      "sam_range": "Unknown",
+      "som_range": "Unknown"
+    },
+    "extracted_insights": [
+      "Gamification can be a strong motivator.",
+      "Task management and team collaboration are key features.",
+      "AI integration is becoming increasingly popular.",
+      "Users need a simple and intuitive interface."
+    ],
+    "evidence_refs": []
+  },
+  "status": "complete"
+}

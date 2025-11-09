@@ -1,0 +1,78 @@
+{
+  "raw_output": "{\"facts\": {\"competitors\": [{\"name\": \"Habitica\", \"summary\": \"Gamified habit and productivity app that treats real life like a game using retro RPG elements.\", \"differentiators\": [\"Gamification\", \"RPG elements\", \"Character building\"], \"gaps\": [\"May not be simple enough for users seeking a clean, easy-to-use interface.\"], \"sources\": [\"https://www.usemotion.com/blog/goal-tracking.html\", \"https://habitica.com/\", \"https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica&hl=en_US\", \"https://collegeinfogeek.com/habit-tracker/\"]}, {\"name\": \"Notion\", \"summary\": \"Offers templates for habit tracking, designed to help build and maintain positive habits within a broader workspace.\", \"differentiators\": [\"Flexible templates\", \"Integrated into a broader workspace tool\"], \"gaps\": [\"Requires setup with templates, potentially not a dedicated simple habit app.\"], \"sources\": [\"https://www.notion.com/templates/category/habit-tracking?srsltid=AfmBOorHAhuvHtXh8mi8m3mBC_NspaKvnVMF57KE2ZSW3SgLqp9mPxZu\"]}, {\"name\": \"Daylio\", \"summary\": \"App for mood and habit tracking, also includes journaling features.\", \"differentiators\": [\"Mood tracking\", \"Journaling integration\"], \"gaps\": [\"Primary focus on mood/journaling may not align with a dedicated habit/goal tracker.\"], \"sources\": [\"https://www.reddit.com/r/todoist/comments/1c4j15v/habit_tracker_recommendations/\"]}, {\"name\": \"Clockify\", \"summary\": \"Free habit tracker app that tracks the time spent building habits and finishing tasks.\", \"differentiators\": [\"Time tracking for habits and tasks\"], \"gaps\": [\"Focus on time tracking might not align with simple progress charts.\"], \"sources\": [\"https://clockify.me/blog/productivity/best-habit-tracker-apps/\"]}], \"user_needs\": [\"Plan and track daily habits and goals.\", \"Simple, fun, clean, and easy to use.\", \"Reminders to stay on track.\", \"Show progress with simple charts.\", \"Help build good habits.\", \"Mobile app and small web dashboard.\", \"Calm and modern look.\"], \"market_ranges\": {\"tam_range\": \"N/A\", \"sam_range\": \"N/A\", \"som_range\": \"N/A\"}, \"extracted_insights\": [\"Gamification is a common approach but may not meet the 'simple enough' criteria.\", \"Template-based tracking offers flexibility but might lack dedicated simplicity.\", \"Mood tracking",
+  "evidence": {
+    "competitor_items": [
+      {
+        "source_query": "query: \"Habitica, Todoist, Notion, simple habit tracking apps, goal setting apps",
+        "title": "The 5 best habit tracker apps in 2025",
+        "summary": "We considered almost 50 of the most popular habit tracking apps\u2014a lot fell short, but after extensive testing, here are the best five.",
+        "url": "https://zapier.com/blog/best-habit-tracker-app/"
+      },
+      {
+        "source_query": "query: \"Habitica, Todoist, Notion, simple habit tracking apps, goal setting apps",
+        "title": "8 Habit Tracking Apps That Actually Work",
+        "summary": "I've picked some of the best habit trackers eight in particular that I think you may like.",
+        "url": "https://www.youtube.com/watch?v=W6AB-dxnAkA"
+      },
+      {
+        "source_query": "query: \"Habitica, Todoist, Notion, simple habit tracking apps, goal setting apps",
+        "title": "8 Goal-Tracking Apps to Keep You and Your Team on Track",
+        "summary": "Overview: Habitica is a unique goal-tracking and task-management app. It's novel in that it turns your daily tasks and goals into a role-playing ...",
+        "url": "https://www.usemotion.com/blog/goal-tracking.html"
+      },
+      {
+        "source_query": "query: \"Habitica, Todoist, Notion, simple habit tracking apps, goal setting apps",
+        "title": "Habit Tracker Recommendations? : r/todoist",
+        "summary": "Daylio is perfect for mood and habit tracking (and even journaling)! It's the only app I've been using consistently for over five years now.",
+        "url": "https://www.reddit.com/r/todoist/comments/1c4j15v/habit_tracker_recommendations/"
+      },
+      {
+        "source_query": "query: \"Habitica, Todoist, Notion, simple habit tracking apps, goal setting apps",
+        "title": "Habitica - Gamify Your Life",
+        "summary": "Habitica is a free habit and productivity app that treats your real life like a game. Habitica can help you achieve your goals to become healthy and happy.",
+        "url": "https://habitica.com/"
+      },
+      {
+        "source_query": "query: \"Habitica, Todoist, Notion, simple habit tracking apps, goal setting apps",
+        "title": "Habitica: Gamify Your Tasks - Apps on Google Play",
+        "summary": "Habitica is a free habit-building and productivity app that uses retro RPG elements to gamify your tasks and goals.",
+        "url": "https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica&hl=en_US"
+      },
+      {
+        "source_query": "query: \"Habitica, Todoist, Notion, simple habit tracking apps, goal setting apps",
+        "title": "Top Habit Tracker Apps to Boost Your Productivity \ud83d\udcf1",
+        "summary": "Discover the best free habit tracker apps that can help you track your daily habits and improve your productivity.",
+        "url": "https://www.lemon8-app.com/@sleepytofuuuu/7373667754106569217?region=sg"
+      },
+      {
+        "source_query": "query: \"Habitica, Todoist, Notion, simple habit tracking apps, goal setting apps",
+        "title": "11 Best Habit Tracker Apps to Use in 2025",
+        "summary": "Clockify is a free habit tracker app that tracks the time you spend building habits and finishing tasks.",
+        "url": "https://clockify.me/blog/productivity/best-habit-tracker-apps/"
+      },
+      {
+        "source_query": "query: \"Habitica, Todoist, Notion, simple habit tracking apps, goal setting apps",
+        "title": "The 12 Best Habit Tracking Apps in 2023",
+        "summary": "Habitica is essentially an RPG with habit tracking features built in. As you complete your habits, you also build up the stats for a character ...",
+        "url": "https://collegeinfogeek.com/habit-tracker/"
+      },
+      {
+        "source_query": "query: \"Habitica, Todoist, Notion, simple habit tracking apps, goal setting apps",
+        "title": "Habit Tracking Templates",
+        "summary": "Designed to help you build and maintain positive habits, our templates offer daily, weekly, and monthly trackers, motivating you towards consistent improvement.",
+        "url": "https://www.notion.com/templates/category/habit-tracking?srsltid=AfmBOorHAhuvHtXh8mi8m3mBC_NspaKvnVMF57KE3ZSW3SgLqp9mPxZu"
+      }
+    ],
+    "competitor_overviews": [
+      "We considered almost 50 of the most popular habit tracking apps\u2014a lot fell short, but after extensive testing, here are the best five. I've picked some of the best habit trackers eight in particular that I think you may like. Overview: Habitica is a unique goal-tracking and task-management app. It's novel in that it turns your daily tasks and goals into a role-playing ... Daylio is perfect for mood and habit tracking (and even journaling)! It's the only app I've been using consistently for over five years now. Habitica is a free habit and productivity app that treats your real life like a game. Habitica can help you achieve your goals to become healthy and happy. Habitica is a free habit-building and productivity app that uses retro RPG elements to gamify your tasks and goals. Discover the"
+    ],
+    "csv_rows": {},
+    "raw_steps": [
+      {
+        "tool": "competitor_report",
+        "input": "query: \"Habitica, Todoist, Notion, simple habit tracking apps, goal setting apps",
+        "observation": "{\"query\": \"query: \\\"Habitica, Todoist, Notion, simple habit tracking apps, goal setting apps\", \"items\": [{\"title\": \"The 5 best habit tracker apps in 2025\", \"summary\": \"We considered almost 50 of the most popular habit tracking apps\u2014a lot fell short, but after extensive testing, here are the best five.\", \"url\": \"https://zapier.com/blog/best-habit-tracker-app/\"}, {\"title\": \"8 Habit Tracking Apps That Actually Work\", \"summary\": \"I've picked some of the best habit trackers eight in particular that I think you may like.\", \"url\": \"https://www.youtube.com/watch?v=W6AB-dxnAkA\"}, {\"title\": \"8 Goal-Tracking Apps to Keep You and Your Team on Track\", \"summary\": \"Overview: Habitica is a unique goal-tracking and task-management app. It's novel in that it turns your daily tasks and goals into a role-playing ...\", \"url\": \"https://www.usemotion.com/blog/goal-tracking.html\"}, {\"title\": \"Habit Tracker Recommendations? : r/todoist\", \"summary\": \"Daylio is perfect for mood and habit tracking (and even journaling)! It's the only app I've been using consistently for over five years now.\", \"url\": \"https://www.reddit.com/r/todoist/comments/1c4j15v/habit_tracker_recommendations/\"}, {\"title\": \"Habitica - Gamify Your Life\", \"summary\": \"Habitica is a free habit and productivity app that treats your real life like a game. Habitica can help you achieve your goals to become healthy and happy.\", \"url\": \"https://habitica.com/\"}, {\"title\": \"Habitica: Gamify Your Tasks - Apps on Google Play\", \"summary\": \"Habitica is a free habit-building and productivity app that uses retro RPG elements to gamify your tasks and goals.\", \"url\": \"https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica&hl=en_US\"}, {\"title\": \"Top Habit Tracker Apps to Boost Your Productivity \ud83d\udcf1\", \"summary\": \"Discover the best free habit tracker apps that can help you track your daily habits and improve your productivity.\", \"url\": \"https://www.lemon8-app.com/@sleepytofuuuu/7373667754106569217?region=sg\"}, {\"title\": \"11 Best Habit Tracker Apps to Use in 2025\", \"summary\": \"Clockify is a free habit tracker app that tracks the time you spend building habits and finishing tasks.\", \"url\": \"https://clockify.me/blog/productivity/best-habit-tracker-apps/\"}, {\"title\": \"The 12 Best Habit Tracking Apps in 2023\", \"summary\": \"Habitica is essentially an RPG with habit tracking features built in. As you complete your habits, you also build up the stats for a character ...\", \"url\": \"https://collegeinfogeek.com/habit-tracker/\"}, {\"title\": \"Habit Tracking Templates\", \"summary\": \"Designed to help you build and maintain positive habits, our templates offer daily, weekly, and monthly trackers, motivating you towards consistent improvement.\", \"url\": \"https://www.notion.com/templates/category/habit-tracking?srsltid=AfmBOorHAhuvHtXh8mi8m3mBC_NspaKvnVMF57KE3ZSW3SgLqp9mPxZu\"}], \"overview\": \"We considered almost 50 of the most popular habit tracking apps\u2014a lot fell short, but after extensive testing, here are the best five. I've picked some of the best habit trackers eight in particular that I think you may like. Overview: Habitica is a unique goal-tracking and task-management app. It's novel in that it turns your daily tasks and goals into a role-playing ... Daylio is perfect for mood and habit tracking (and even journaling)! It's the only app I've been using consistently for over five years now. Habitica is a free habit and productivity app that treats your real life like a game. Habitica can help you achieve your goals to become healthy and happy. Habitica is a free habit-building and productivity app that uses retro RPG elements to gamify your tasks and goals. Discover the best free habit tracker apps that can help you track your daily habits and improve your productivity. Clockify is a free habit tracker app that tracks the time you spend building habits and finishing tasks. Habitica is essentially an RPG with habit tracking features built in. As you complete your habits, you also build up the stats for a character ... Designed to help you build and maintain posit\"}"
+      }
+    ]
+  }
+}

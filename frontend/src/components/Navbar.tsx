@@ -34,6 +34,7 @@ export default function Navbar() {
         {isAuthenticated ? (
           <>
             <Link to="/home" className="navbar-link">Home</Link>
+            <Link to="/pm-analysis" className="navbar-link">PM Analysis</Link>
             <div className="profile-dropdown">
               <div className="profile-trigger">
                 <span className="navbar-user">

@@ -1,0 +1,15 @@
+langchain
+langchain-community
+langchain-google-genai
+google-generativeai
+google-search-results
+exa-py
+pandas==2.2.2
+python-dotenv==1.0.1
+matplotlib==3.9.1
+reportlab==4.1.0
+requests==2.32.3
+fastapi==0.115.0
+uvicorn==0.32.0
+python-multipart==0.0.12
+pydantic==2.9.2

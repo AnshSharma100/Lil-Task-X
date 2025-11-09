@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { supabase } from "../lib/supabaseClient";
+import axios from "axios";
 import "./ProductDetails.css";
 import { fetchMessages, insertMessage, type MessageRow } from "../lib/ProductDetails";
 
@@ -124,6 +125,7 @@ export default function ProductDetails() {
   const [product, setProduct] = useState<ProductRow | null>(null);
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [runningAnalysis, setRunningAnalysis] = useState(false);
   const [form, setForm] = useState({ name: "", due_date: "", budget: "", description: "" });
 
   // Load the product row
@@ -198,6 +200,73 @@ export default function ProductDetails() {
     setEditing(false);
   }
 
+  async function handleRunAnalysis() {
+    if (!product) {
+      alert("No product data to analyze");
+      return;
+    }
+
+    if (!form.name || !form.due_date || !form.budget || !form.description) {
+      alert("Please fill in all fields (name, due date, budget, description) before running analysis");
+      return;
+    }
+
+    setRunningAnalysis(true);
+
+    try {
+      // Create FormData to match backend API
+      const formData = new FormData();
+      formData.append("deadline", form.due_date);
+      formData.append("product_description", form.description);
+      
+      // Create proper CSV files with exact format expected by backend
+      const budgetAmount = parseFloat(form.budget);
+      const budgetCsvContent = `Resource,Value
+Engineering Budget (USD),${budgetAmount * 0.6}
+QA Budget (USD),${budgetAmount * 0.25}
+Cloud Services Budget (USD),${budgetAmount * 0.1}
+Licensing & Tools Budget (USD),${budgetAmount * 0.03}
+Gemini API Available,False
+Gemini API Monthly Cost (USD),100
+Firebase Auth Monthly Cost (USD),50
+Security/Compliance Budget (USD),${budgetAmount * 0.01}
+Training & Upskilling Budget (USD),${budgetAmount * 0.005}
+Emergency Contingency Reserve (USD),${budgetAmount * 0.005}`;
+      
+      const employeesCsvContent = `Name,Role,Experience_Level,Skills,Hourly_Rate_USD,Email
+John Doe,Senior Frontend Engineer,Senior,"frontend,react,typescript,css",85,john@example.com
+Jane Smith,Senior Backend Engineer,Senior,"backend,python,api,databases",95,jane@example.com
+Bob Johnson,Mid Fullstack Engineer,Mid,"react,nodejs,typescript,databases",65,bob@example.com
+Alice Williams,Senior QA Engineer,Senior,"qa,automation,selenium,testing",80,alice@example.com
+Charlie Brown,Mid QA Engineer,Mid,"testing,manual,api-testing",55,charlie@example.com`;
+      
+      const budgetBlob = new Blob([budgetCsvContent], { type: "text/csv" });
+      const employeesBlob = new Blob([employeesCsvContent], { type: "text/csv" });
+      
+      // IMPORTANT: Backend expects "budget_csv" and "employees_csv" (not budget_file/employees_file)
+      formData.append("budget_csv", budgetBlob, "budget.csv");
+      formData.append("employees_csv", employeesBlob, "employees.csv");
+
+      const response = await axios.post("http://localhost:8000/run-analysis", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      // Navigate to results page with the analysis data
+      navigate("/analysis-results", {
+        state: {
+          sessionId: response.data.session_id,
+          analysisResult: response.data,
+        },
+      });
+    } catch (err: any) {
+      console.error("Analysis error:", err);
+      const errorDetail = err.response?.data?.detail || "Failed to run PM analysis";
+      alert(`Error: ${errorDetail}`);
+    } finally {
+      setRunningAnalysis(false);
+    }
+  }
+
   if (!Number.isFinite(productId)) {
     return <div className="product-details-container">Invalid product id.</div>;
   }
@@ -209,6 +278,9 @@ export default function ProductDetails() {
         <div className="product-actions">
           {!editing ? (
             <>
+              <button className="btn primary" onClick={handleRunAnalysis} disabled={runningAnalysis}>
+                {runningAnalysis ? "Running Analysis..." : "🚀 Run PM Analysis"}
+              </button>
               <button className="btn" onClick={() => setEditing(true)}>Edit</button>
               <button className="btn danger" onClick={handleDelete}>Delete</button>
             </>
