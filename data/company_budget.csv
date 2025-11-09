@@ -1,0 +1,11 @@
+Resource,Value
+Engineering Budget (USD),120000
+QA Budget (USD),40000
+Cloud Services Budget (USD),30000
+Licensing & Tools Budget (USD),15000
+Gemini API Available,False
+Gemini API Monthly Cost (USD),100
+Firebase Auth Monthly Cost (USD),50
+Security/Compliance Budget (USD),10000
+Training & Upskilling Budget (USD),5000
+Emergency Contingency Reserve (USD),8000
