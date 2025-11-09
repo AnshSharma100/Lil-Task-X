@@ -1,11 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import AddProductModal, { type ProductFormData } from "../components/AddProductModal";
 import { Link } from "react-router-dom";
 import "./Home.css";
+import { supabase } from "../lib/supabaseClient";
+
+interface ProductRow {
+  id: number;
+  auth0_sub: string;
+  name: string;
+  due_date: string;
+  budget: string;
+  description: string;
+  created_at: string;
+}
 
 interface Product {
-  id: string;
+  id: number;
   productName: string;
   dueDate: string;
   budget: string;
@@ -13,10 +24,39 @@ interface Product {
   createdAt: string;
 }
 
+
+function mapRow(r: ProductRow): Product {
+  return {
+    id: r.id,
+    productName: r.name ?? "",
+    dueDate: r.due_date ?? "",
+    budget: r.budget ?? "",
+    description: r.description ?? "",
+    createdAt: r.created_at,
+  };
+}
+
 function Home() {
   const { user, isLoading } = useAuth0();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    if (!user?.sub) return;
+    (async () => {
+      const { data, error } = await supabase
+        .from("products")
+        .select("*")
+        .eq("auth0_sub", user.sub)
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        console.error("load products error:", error);
+        return;
+      }
+      setProducts((data ?? []).map(mapRow));
+    })();
+  }, [user?.sub]);
 
   if (isLoading) {
     return (
@@ -26,24 +66,31 @@ function Home() {
     );
   }
 
-  const handleAnalyze = (productData: ProductFormData) => {
-    // Create new product from form data
-    const newProduct: Product = {
-      id: Date.now().toString(),
-      productName: productData.productName,
-      dueDate: productData.dueDate,
-      // store file names for budget and description so the UI can show them
-      budget: productData.budget ? productData.budget.name : "",
-      description: productData.description ? productData.description.name : "",
-      createdAt: new Date().toISOString(),
-    };
+  const handleAnalyze = async (productData: ProductFormData) => {
+    if (!user?.sub) return;
 
-    // Add product to list
-    setProducts(prev => [...prev, newProduct]);
+    const { data, error } = await supabase
+      .from("products")
+      .insert([
+        {
+          auth0_sub: user.sub,
+          name: productData.productName ?? null,
+          due_date: productData.dueDate || null,        // "YYYY-MM-DD"
+          // If your modal doesn't collect a numeric budget or description text yet, pass nulls:
+          budget: (productData as any).budgetAmount ?? null,
+          description: (productData as any).descriptionText ?? null,
+        },
+      ])
+      .select("*")
+      .single();
 
-    // Here you would typically send the data to your backend for analysis
-    console.log("Analyzing product:", productData);
-    // TODO: Implement actual analysis logic
+    if (error) {
+      console.error("insert product error:", error);
+      return;
+    }
+
+    setProducts((prev) => [mapRow(data as ProductRow), ...prev]);
+    setIsModalOpen(false);
   };
 
   const formatDate = (dateString: string) => {

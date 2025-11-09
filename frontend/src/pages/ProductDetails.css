@@ -136,3 +136,115 @@
   .chat-input textarea { min-height: 40px; }
   .bubble { max-width: 88%; }
 }
+
+.btn {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  margin-right: 1em;
+  background: #5170ff;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.btn.danger {
+  background: #ff4d4f;
+  border-color: #ff4d4f;
+  color: #ffffff;
+}
+
+.btn:hover {
+  background: #3b5de7;
+}
+
+.btn.danger:hover {
+  background: #e04344;
+}
+
+.product-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.product-edit-form label {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.product-edit-form input,
+.product-edit-form textarea {
+  padding: 0.75rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.product-edit-form input:focus,
+.product-edit-form textarea:focus {
+  outline: none;
+  box-shadow: 0 6px 20px rgba(81,112,255,0.12);
+  border-color: #5170ff;
+}
+
+.product-edit-form button {
+  align-self: flex-start;
+  padding: 0.75rem 1.5rem;
+  background: #5170ff;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.product-edit-form button:hover {
+  background: #3b5de7;
+}
+
+.loading-indicator {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: #666666;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: #5170ff;
+  box-shadow: 0 0 0 3px rgba(81, 112, 255, 0.1);
+}
+
+.product-edit-form label {
+  display: inline-block;
+}
+
+.product-edit-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.25rem;
+  margin-bottom: 1em;
+}
+
+.product-edit-form label {
+  display: inline-flex;
+  flex-direction: column;
+  width: calc(50% - 0.625rem); /* two columns with gap */
+}
+
+.product-edit-form .full {
+  width: 100%;
+}
+
+.product-actions-row { width: 100%; display: flex; gap: .75rem; }
+@media (max-width: 640px) { .product-edit-form label { width: 100%; } }

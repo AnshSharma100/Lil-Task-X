@@ -1,64 +1,81 @@
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+import { supabase } from "../lib/supabaseClient";
 import "./ProductDetails.css";
+import { fetchMessages, insertMessage, type MessageRow } from "../lib/ProductDetails";
 
-type ChatMessage = { role: "user" | "model"; content: string };
+type ChatMessage = { role: "user" | "bot"; content: string };
 
-function Chatbot({ productId }: { productId: string }) {
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    { role: "model", content: "Hi! Ask me anything about this product’s plan, budget, or timeline." }
-  ]);
+// Matches your `products` table
+interface ProductRow {
+  id: number;
+  auth0_sub: string | null;
+  name: string | null;
+  due_date: string | null;    // YYYY-MM-DD
+  budget: string | null;      // numeric comes back as string
+  description: string | null;
+  created_at: string;
+}
+
+function Chatbot({ productId }: { productId: number }) {
+  const { user } = useAuth0();
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // Load message history
+  useEffect(() => {
+    (async () => {
+      const { data, error } = await fetchMessages(productId);
+      if (error) {
+        console.error("fetchMessages error:", error);
+        return;
+      }
+      const mapped = (data as MessageRow[]).map(m => ({ role: m.author, content: m.content }));
+      setMessages(mapped);
+    })();
+  }, [productId]);
 
   async function sendMessage() {
     const text = input.trim();
     if (!text || loading) return;
-
-    setMessages((m) => [...m, { role: "user", content: text }]);
     setInput("");
     setLoading(true);
 
     try {
-      // Option A (client-only demo): direct REST call to Gemini
-      // NOTE: Exposes your API key in the browser — use only for quick testing!
-      const apiKey = import.meta.env.VITE_GEMINI_API_KEY as string;
-      const model = "gemini-2.5-flash"; // or gemini-1.5-pro
+      // Save USER message
+      await insertMessage(productId, "user", text, user?.sub ?? null);
+      setMessages(m => [...m, { role: "user", content: text }]);
 
+      // Call Gemini
+      const apiKey = import.meta.env.VITE_GEMINI_API_KEY as string;
+      const model = "gemini-2.5-flash";
       const resp = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            contents: [
-              // you can prepend a system-style instruction by adding another part here
-              { role: "user", parts: [{ text: `Product ID: ${productId}\n\nUser: ${text}` }] },
-            ],
-            generationConfig: {
-              temperature: 0.5,
-              maxOutputTokens: 1024,
-            },
+            contents: [{ role: "user", parts: [{ text: `Product ID: ${productId}\n\n${text}` }] }],
+            generationConfig: { temperature: 0.5, maxOutputTokens: 1024 },
           }),
         }
       );
-
-      const data = await resp.json();
-
-      if (!resp.ok) {
-        // Log the actual error from the API to your browser console
-        console.error("API Error Response:", data);
-        // Throw an error to be caught by the 'catch' block
-        throw new Error(data?.error?.message ?? "API request failed");
-      }
+      const body = await resp.json();
+      if (!resp.ok) throw new Error(body?.error?.message ?? "Gemini request failed");
 
       const reply =
-        data?.candidates?.[0]?.content?.parts?.map((p: any) => p.text).join("\n") ??
+        body?.candidates?.[0]?.content?.parts?.map((p: any) => p?.text).filter(Boolean).join("\n") ??
         "Sorry, I didn’t catch that.";
 
-      setMessages((m) => [...m, { role: "model", content: reply }]);
+      // Save MODEL message
+      await insertMessage(productId, "bot", reply, user?.sub ?? null);
+      setMessages(m => [...m, { role: "bot", content: reply }]);
     } catch (e: any) {
-      setMessages((m) => [...m, { role: "model", content: `Error: ${e?.message ?? e}` }]);
+      const errText = `Error: ${e?.message ?? String(e)}`;
+      await insertMessage(productId, "bot", errText, user?.sub ?? null);
+      setMessages(m => [...m, { role: "bot", content: errText }]);
     } finally {
       setLoading(false);
     }
@@ -71,7 +88,7 @@ function Chatbot({ productId }: { productId: string }) {
     }
   }
 
-   return (
+  return (
     <div className="chatbot">
       <div className="chat-header">✦ Ask AI ✦</div>
       <div className="chat-history">
@@ -98,17 +115,176 @@ function Chatbot({ productId }: { productId: string }) {
   );
 }
 
-function ProductDetails() {
-    const { id } = useParams();
+export default function ProductDetails() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { user } = useAuth0();
+  const productId = Number(id);
 
-    return (
-        <div className="product-details-container">
-            <h1>Product Details</h1>
-            <p>Details for product with ID: {id}</p>
+  const [product, setProduct] = useState<ProductRow | null>(null);
+  const [editing, setEditing] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [form, setForm] = useState({ name: "", due_date: "", budget: "", description: "" });
 
-            <Chatbot productId={id ?? "unknown"} />
+  // Load the product row
+  useEffect(() => {
+    if (!Number.isFinite(productId)) return;
+    (async () => {
+      const { data, error } = await supabase
+        .from("products")
+        .select("*")
+        .eq("id", productId)
+        .maybeSingle();
+
+      if (error) {
+        console.error("load product error:", error);
+        return;
+      }
+      if (data) {
+        const p = data as ProductRow;
+        setProduct(p);
+        setForm({
+          name: p.name ?? "",
+          due_date: p.due_date ?? "",
+          budget: p.budget ?? "",
+          description: p.description ?? ""
+        });
+      }
+    })();
+  }, [productId]);
+
+  async function handleDelete() {
+    if (!Number.isFinite(productId)) return;
+    if (!window.confirm("Delete this product? This cannot be undone.")) return;
+
+    // Optional owner check if you store auth0_sub on products
+    let q = supabase.from("products").delete().eq("id", productId);
+    if (user?.sub) q = q.eq("auth0_sub", user.sub);
+
+    const { error } = await q;
+    if (error) {
+      console.error("delete product error:", error);
+      alert("Failed to delete product.");
+      return;
+    }
+    navigate("/home", { replace: true });
+  }
+
+  async function handleSave() {
+    if (!Number.isFinite(productId)) return;
+    setSaving(true);
+
+    const payload = {
+      name: form.name || null,
+      due_date: form.due_date || null,
+      budget: form.budget || null,
+      description: form.description || null,
+    };
+
+    let q = supabase.from("products").update(payload).eq("id", productId);
+    if (user?.sub) q = q.eq("auth0_sub", user.sub);
+
+    const { data, error } = await q.select("*").single();
+    setSaving(false);
+
+    if (error) {
+      console.error("update product error:", error);
+      alert("Failed to save changes.");
+      return;
+    }
+
+    const p = data as ProductRow;
+    setProduct(p);
+    setEditing(false);
+  }
+
+  if (!Number.isFinite(productId)) {
+    return <div className="product-details-container">Invalid product id.</div>;
+  }
+
+  return (
+    <div className="product-details-container">
+      <div className="product-header">
+        <h1>Product Details</h1>
+        <div className="product-actions">
+          {!editing ? (
+            <>
+              <button className="btn" onClick={() => setEditing(true)}>Edit</button>
+              <button className="btn danger" onClick={handleDelete}>Delete</button>
+            </>
+          ) : (
+            <>
+              <button className="btn" onClick={handleSave} disabled={saving}>
+                {saving ? "Saving..." : "Save"}
+              </button>
+              <button
+                className="btn ghost"
+                onClick={() => {
+                  setEditing(false);
+                  if (product) {
+                    setForm({
+                      name: product.name ?? "",
+                      due_date: product.due_date ?? "",
+                      budget: product.budget ?? "",
+                      description: product.description ?? ""
+                    });
+                  }
+                }}
+              >
+                Cancel
+              </button>
+            </>
+          )}
         </div>
-    )
-}
+      </div>
 
-export default ProductDetails;
+      {product ? (
+        <>
+          {!editing ? (
+            <div className="product-summary">
+              <p><strong>Name:</strong> {product.name || "—"}</p>
+              <p><strong>Due date:</strong> {product.due_date || "—"}</p>
+              <p><strong>Budget:</strong> {product.budget || "—"}</p>
+              <p><strong>Description:</strong> {product.description || "—"}</p>
+            </div>
+          ) : (
+            <div className="product-edit-form">
+              <label> Name
+                <input
+                  value={form.name}
+                  onChange={(e) => setForm(f => ({ ...f, name: e.target.value }))}
+                />
+              </label>
+              <label> Due date
+                <input
+                  type="date"
+                  value={form.due_date}
+                  onChange={(e) => setForm(f => ({ ...f, due_date: e.target.value }))}
+                />
+              </label>
+              <label> Budget
+                <input
+                  value={form.budget}
+                  onChange={(e) => setForm(f => ({ ...f, budget: e.target.value }))}
+                  placeholder="e.g. 10000.00"
+                />
+              </label>
+              <label> Description
+                <textarea
+                  rows={4}
+                  value={form.description}
+                  onChange={(e) => setForm(f => ({ ...f, description: e.target.value }))}
+                />
+              </label>
+            </div>
+          )}
+
+          <hr className="divider" />
+          <Chatbot productId={productId} />
+        </>
+      ) : (
+        <p>Loading product…</p>
+      )}
+    </div>
+  );
+}
