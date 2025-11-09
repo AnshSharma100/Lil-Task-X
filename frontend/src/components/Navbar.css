@@ -1,0 +1,152 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: #5170ff;
+  border-bottom: 2px solid #5170ff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-logo {
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navbar-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+.navbar-link:hover {
+  color: #ff751f;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.profile-dropdown {
+  position: relative;
+  cursor: pointer;
+}
+
+.profile-trigger {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-user {
+  color: #ffffff;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+}
+
+.profile-dropdown:hover .navbar-user {
+  color: #ff751f;
+  border-color: #ff751f;
+  background: rgba(255, 117, 31, 0.2);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 150px;
+  background: #5170ff;
+  border: 2px solid #ff751f;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+  z-index: 1000;
+}
+
+.profile-dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-item {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  color: #ffffff;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 117, 31, 0.2);
+  color: #ff751f;
+}
+
+.navbar-button {
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #5170ff;
+  background: #ffffff;
+  border: 2px solid #ff751f;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.navbar-button:hover {
+  background: #ff751f;
+  color: #ffffff;
+  border-color: #ff751f;
+}
+
+.navbar-button:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .navbar-links {
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .navbar-link,
+  .navbar-user,
+  .navbar-button {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
