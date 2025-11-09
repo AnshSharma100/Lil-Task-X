@@ -32,8 +32,9 @@ function Home() {
       id: Date.now().toString(),
       productName: productData.productName,
       dueDate: productData.dueDate,
-      budget: productData.budget,
-      description: productData.description,
+      // store file names for budget and description so the UI can show them
+      budget: productData.budget ? productData.budget.name : "",
+      description: productData.description ? productData.description.name : "",
       createdAt: new Date().toISOString(),
     };
 
@@ -92,7 +93,7 @@ function Home() {
                     </div>
                     <div className="product-detail-item">
                       <span className="detail-label">Budget:</span>
-                      <span className="detail-value">${parseFloat(product.budget).toLocaleString()}</span>
+                      <span className="detail-value">{product.budget || "(no budget file)"}</span>
                     </div>
                     <div className="product-detail-item">
                       <span className="detail-label">Description:</span>

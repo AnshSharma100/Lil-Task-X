@@ -10,8 +10,8 @@ interface AddProductModalProps {
 export interface ProductFormData {
   productName: string;
   dueDate: string;
-  budget: string;
-  description: string;
+  budget: File | null;
+  description: File | null;
   employeeData: File | null;
 }
 
@@ -19,11 +19,13 @@ export default function AddProductModal({ isOpen, onClose, onAnalyze }: AddProdu
   const [formData, setFormData] = useState<ProductFormData>({
     productName: "",
     dueDate: "",
-    budget: "",
-    description: "",
+    budget: null,
+    description: null,
     employeeData: null,
   });
-  const [fileName, setFileName] = useState<string>("");
+  const [budgetFileName, setBudgetFileName] = useState<string>("");
+  const [descriptionFileName, setDescriptionFileName] = useState<string>("");
+  const [employeeFileName, setEmployeeFileName] = useState<string>("");
 
   if (!isOpen) return null;
 
@@ -34,8 +36,18 @@ export default function AddProductModal({ isOpen, onClose, onAnalyze }: AddProdu
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
-    setFormData(prev => ({ ...prev, employeeData: file }));
-    setFileName(file ? file.name : "");
+    const { name } = e.target;
+
+    if (name === "budget") {
+      setFormData(prev => ({ ...prev, budget: file }));
+      setBudgetFileName(file ? file.name : "");
+    } else if (name === "description") {
+      setFormData(prev => ({ ...prev, description: file }));
+      setDescriptionFileName(file ? file.name : "");
+    } else if (name === "employeeData") {
+      setFormData(prev => ({ ...prev, employeeData: file }));
+      setEmployeeFileName(file ? file.name : "");
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -45,11 +57,13 @@ export default function AddProductModal({ isOpen, onClose, onAnalyze }: AddProdu
     setFormData({
       productName: "",
       dueDate: "",
-      budget: "",
-      description: "",
+      budget: null,
+      description: null,
       employeeData: null,
     });
-    setFileName("");
+    setBudgetFileName("");
+    setDescriptionFileName("");
+    setEmployeeFileName("");
     onClose();
   };
 
@@ -97,34 +111,19 @@ export default function AddProductModal({ isOpen, onClose, onAnalyze }: AddProdu
           </div>
 
           <div className="form-group">
-            <label htmlFor="budget">Budget</label>
-            <input
-              type="number"
-              id="budget"
-              name="budget"
-              value={formData.budget}
-              onChange={handleInputChange}
-              required
-              min="0"
-              step="0.01"
-              className="form-input"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="description">Budget (File Upload)</label>
+            <label htmlFor="budget">Budget (File Upload)</label>
             <div className="file-upload-wrapper">
               <input
                 type="file"
-                id="description"
-                name="description"
+                id="budget"
+                name="budget"
                 onChange={handleFileChange}
                 required
                 className="file-input"
-                accept=".txt,.doc,.docx,.pdf"
+                accept=".csv,.xlsx,.xls,.pdf"
               />
-              <label htmlFor="description" className="file-label">
-                {fileName || "Choose file..."}
+              <label htmlFor="budget" className="file-label">
+                {budgetFileName || "Choose budget file..."}
               </label>
             </div>
           </div>
@@ -142,7 +141,7 @@ export default function AddProductModal({ isOpen, onClose, onAnalyze }: AddProdu
                 accept=".txt,.doc,.docx,.pdf"
               />
               <label htmlFor="description" className="file-label">
-                {fileName || "Choose file..."}
+                {descriptionFileName || "Choose description file..."}
               </label>
             </div>
           </div>
@@ -159,7 +158,7 @@ export default function AddProductModal({ isOpen, onClose, onAnalyze }: AddProdu
                 accept=".csv,.xlsx,.xls,.json"
               />
               <label htmlFor="employeeData" className="file-label">
-                {fileName || "Choose file..."}
+                {employeeFileName || "Choose employee data file..."}
               </label>
             </div>
           </div>
