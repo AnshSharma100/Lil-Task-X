@@ -278,7 +278,12 @@ export default function ProductDetails() {
               </label>
             </div>
           )}
-
+          <h1 className="ai-report">AI Report</h1>
+          <iframe className="pdf" 
+            src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20210101201653/PDF.pdf"
+            width="800" 
+            height="500">
+          </iframe>
           <hr className="divider" />
           <Chatbot productId={productId} />
         </>

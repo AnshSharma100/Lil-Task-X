@@ -248,3 +248,18 @@
 
 .product-actions-row { width: 100%; display: flex; gap: .75rem; }
 @media (max-width: 640px) { .product-edit-form label { width: 100%; } }
+
+.pdf {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+h1.ai-report {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 2rem 0 1rem 0;
+}
