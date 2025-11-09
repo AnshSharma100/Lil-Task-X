@@ -1,0 +1,26 @@
+# Environment and secrets
+.env
+.env.*
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# IDE and tooling
+.vscode/
+.idea/
+*.iml
+
+# Data and model directories
+/models/
+/tmp/
+
+features.json
