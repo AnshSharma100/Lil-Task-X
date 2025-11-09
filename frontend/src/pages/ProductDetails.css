@@ -10,7 +10,7 @@
 
 .chatbot {
   margin-top: 2rem;
-  background: linear-gradient(180deg, #ffffff, #fbfdff);
+  background: linear-gradient(180deg, #ffffff, #fffefb);
   border-radius: 14px;
   padding: 0;
   overflow: hidden;
@@ -262,4 +262,13 @@ h1.ai-report {
   font-weight: 700;
   color: #0f172a;
   margin: 2rem 0 1rem 0;
+}
+
+.product-summary {
+  background: #f9fbff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(2,6,23,0.04);
+  margin-top: 1.5rem;
 }
