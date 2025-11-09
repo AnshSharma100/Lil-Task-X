@@ -1,0 +1,168 @@
+{
+  "project": {
+    "key": "KAN",
+    "name": "Lil Task X"
+  },
+  "generated_at": "2025-11-08T19:15:00Z",
+  "sprints": [
+    {
+      "sprint_name": "Sprint 1 - Core UI & Authentication",
+      "duration_days": 14,
+      "features": [
+        {
+          "feature_name": "Feature 1 - Brand Theme Implementation",
+          "stories": [
+            {
+              "summary": "[Feature 1 - Sprint 1] Setup global color tokens",
+              "description": "Create a centralized color token file defining all brand colors. Replace all hard-coded color values with tokens. Ensure #1E90FF is used as the primary color.",
+              "acceptance_criteria": [
+                "All hard-coded colors replaced by tokens.",
+                "Primary token --brand-blue set to #1E90FF.",
+                "App builds with no visual regressions."
+              ],
+              "priority": "High",
+              "estimate_hours": 4,
+              "labels": [
+                "ui",
+                "branding"
+              ],
+              "assignee": {
+                "name": "Ava Chen",
+                "email": "ava@example.com"
+              },
+              "github": {
+                "repo": "https://github.com/team-blueapp/frontend",
+                "branch": "feature/branding",
+                "auto_link_pr": true
+              },
+              "status": "Ready for Development"
+            },
+            {
+              "summary": "[Feature 1 - Sprint 1] Apply theme to all UI components",
+              "description": "Update buttons, navbar, and form inputs to use the brand blue variable. Verify accessibility contrast ratios.",
+              "acceptance_criteria": [
+                "UI components adopt --brand-blue variable.",
+                "No outdated colors remain.",
+                "Contrast ratio above 4.5:1 for text/buttons."
+              ],
+              "priority": "Medium",
+              "estimate_hours": 6,
+              "labels": [
+                "ui",
+                "accessibility"
+              ],
+              "assignee": {
+                "name": "Ava Chen",
+                "email": "ava@example.com"
+              },
+              "github": {
+                "repo": "https://github.com/team-blueapp/frontend",
+                "branch": "feature/ui-theme-update",
+                "auto_link_pr": true
+              },
+              "status": "In Progress"
+            }
+          ]
+        },
+        {
+          "feature_name": "Feature 2 - User Authentication System",
+          "stories": [
+            {
+              "summary": "[Feature 2 - Sprint 1] Create signup endpoint (backend)",
+              "description": "Develop backend API for user registration with validation, email verification, and hashed password storage.",
+              "acceptance_criteria": [
+                "POST /api/signup validates input and saves users.",
+                "Passwords hashed securely.",
+                "Verification email sent on signup."
+              ],
+              "priority": "High",
+              "estimate_hours": 8,
+              "labels": [
+                "backend",
+                "auth"
+              ],
+              "assignee": {
+                "name": "Daniel Lee",
+                "email": "daniel@example.com"
+              },
+              "github": {
+                "repo": "https://github.com/team-blueapp/backend",
+                "branch": "feature/signup-endpoint",
+                "auto_link_pr": true
+              },
+              "status": "Ready for Development"
+            },
+            {
+              "summary": "[Feature 2 - Sprint 1] Frontend login & signup forms",
+              "description": "Implement responsive login/signup forms with validation and backend integration.",
+              "acceptance_criteria": [
+                "Users can register and log in successfully.",
+                "Invalid inputs show inline error messages.",
+                "Successful login redirects to dashboard."
+              ],
+              "priority": "High",
+              "estimate_hours": 5,
+              "labels": [
+                "frontend",
+                "auth"
+              ],
+              "assignee": {
+                "name": "Ava Chen",
+                "email": "ava@example.com"
+              },
+              "github": {
+                "repo": "https://github.com/team-blueapp/frontend",
+                "branch": "feature/auth-ui",
+                "auto_link_pr": true
+              },
+              "status": "In Progress"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sprint_name": "Sprint 2 - Automation & QA Checks",
+      "duration_days": 14,
+      "features": [
+        {
+          "feature_name": "Feature 3 - Automated Spec Validation",
+          "stories": [
+            {
+              "summary": "[Feature 3 - Sprint 2] Setup CI color validation script",
+              "description": "Add a CI step that checks brand color usage in code. Auto-create Jira task if mismatches found.",
+              "acceptance_criteria": [
+                "CI runs on each PR.",
+                "Incorrect color triggers QA task.",
+                "QA notified via email and Jira mention."
+              ],
+              "priority": "Medium",
+              "estimate_hours": 3,
+              "labels": [
+                "ci",
+                "qa"
+              ],
+              "assignee": {
+                "name": "Qasim Patel",
+                "email": "qasim@example.com"
+              },
+              "github": {
+                "repo": "https://github.com/team-blueapp/devops",
+                "branch": "feature/ci-spec-check",
+                "auto_link_pr": true
+              },
+              "status": "Planned"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "total_features": 3,
+    "total_stories": 5,
+    "total_estimated_hours": 26,
+    "sprints": 2,
+    "team_capacity_used_percent": 88
+  }
+}
