@@ -49,21 +49,21 @@ The input file must follow this structure:
   ]
 }
 
-# --- Jira ---
+ --- Jira ---
 JIRA_BASE_URL=https://yourdomain.atlassian.net
 JIRA_PROJECT_KEY=KAN
 JIRA_ISSUE_TYPE=Task
 JIRA_USERNAME=your_email@gmail.com
 JIRA_API_TOKEN=YOUR_JIRA_API_TOKEN
 
-# --- Email / SMTP ---
+ --- Email / SMTP ---
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
 SMTP_USERNAME=your_email@gmail.com
 SMTP_PASSWORD=YOUR_GMAIL_APP_PASSWORD
 EMAIL_FROM=your_email@gmail.com
 
-# Optional: also CC yourself on every email
+ Optional: also CC yourself on every email
 NOTIFY_EMAIL=your_email@gmail.com
 
 pip install python-dotenv requests
