@@ -34,11 +34,8 @@ def render_sidebar(matches: Any) -> None:
 
 st.write("Paste a GitHub repository URL to analyze features against the codebase.")
 render_sidebar(None)
-st.write("Paste a GitHub repository URL to analyze features against the codebase.")
 
 repo_url = st.text_input("GitHub Repository URL", placeholder="https://github.com/owner/repo")
-branch = st.text_input("Branch (optional)", placeholder="main")
-use_llm = st.checkbox("Use Nemotron summaries", value=False)
 
 analyze_triggered = st.button("Analyze 🔍")
 latest_feature_matches = None
@@ -47,9 +44,7 @@ if analyze_triggered:
     if not repo_url:
         st.warning("Please provide a repository URL before analyzing.")
     else:
-        payload: Dict[str, Any] = {"repo_url": repo_url, "use_llm": use_llm}
-        if branch:
-            payload["branch"] = branch
+        payload: Dict[str, Any] = {"repo_url": repo_url}
 
         with st.spinner("Analyzing repository..."):
             try:

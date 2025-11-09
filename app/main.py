@@ -21,8 +21,7 @@ get_github_token()
 
 class AnalyzeRepoRequest(BaseModel):
     repo_url: HttpUrl
-    branch: Optional[str] = None
-    use_llm: bool = False
+    use_llm: Optional[bool] = None  # retained for backward compatibility but ignored
 
 
 class MatchDetail(BaseModel):
@@ -59,9 +58,8 @@ async def analyze_repo(payload: AnalyzeRepoRequest) -> AnalyzeRepoResponse:
     """Feature 1 - FastAPI Analysis API: clone the repo, scan code, and map features."""
     # Feature 1 story — Build analyze_repo endpoint for on-demand scans.
     repo_url_str = str(payload.repo_url)
-    branch = payload.branch
     try:
-        repo_path = clone_repository(repo_url_str, branch=branch)
+        repo_path = clone_repository(repo_url_str)
         scanned_files = scan_repository(repo_path)
     except RuntimeError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
@@ -74,7 +72,7 @@ async def analyze_repo(payload: AnalyzeRepoRequest) -> AnalyzeRepoResponse:
 
     features = read_features()
 
-    llm_client = NemotronClient() if payload.use_llm else None
+    llm_client = NemotronClient()
 
     try:
         feature_matches = map_features_to_code(features, scanned_files, llm_client=llm_client)
@@ -87,7 +85,7 @@ async def analyze_repo(payload: AnalyzeRepoRequest) -> AnalyzeRepoResponse:
 
     response = AnalyzeRepoResponse(
         repo_url=payload.repo_url,
-        branch=branch,
+        branch=None,
         files_scanned=len(scanned_files),
         feature_matches=[_feature_match_to_model(match) for match in feature_matches],
     )

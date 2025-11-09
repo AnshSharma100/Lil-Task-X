@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Dict, Iterable, List, Optional
+from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
 from difflib import SequenceMatcher
 
@@ -21,14 +21,13 @@ class FeatureMatch:
 def map_features_to_code(
     features: Iterable[Dict[str, Any]],
     repo_files: Iterable[ScannedFile],
-    llm_client: Optional[Any] = None,
+    llm_client: Any,
     max_matches: int = 5,
 ) -> List[FeatureMatch]:
-    """Feature 3 - Map features to code files using keyword heuristics and optional LLM summaries.
+    """Feature 3 - Map features to code files using heuristics followed by mandatory LLM verification."""
+    if llm_client is None:  # pragma: no cover - defensive guard
+        raise ValueError("llm_client must be provided; the mapper always verifies with the model now.")
 
-    Scores fall between 0 and 1 so higher numbers signal closer matches, and the results are
-    capped at max_matches to keep the payload lightweight for the API/UI.
-    """
     results: List[FeatureMatch] = []
 
     repo_files = list(repo_files)
@@ -38,28 +37,53 @@ def map_features_to_code(
         description = feature.get("description", "")
         feature_text = _feature_to_text(feature)
         keywords = _extract_keywords(feature_text, feature.get("tags", []))
-        match_candidates: List[Dict[str, Any]] = []
+        heuristic_candidates: List[Tuple[ScannedFile, float]] = []
 
         for scanned_file in repo_files:
             score = _score_feature_against_file(feature_text, keywords, scanned_file)
-            if score <= 0:
-                continue
+            heuristic_candidates.append((scanned_file, max(score, 0.0)))
 
-            summary: Optional[str] = None
-            if llm_client is not None:
-                summary = llm_client.analyze_feature_with_llm(feature_name, scanned_file.snippet)
+        if not heuristic_candidates:
+            results.append(FeatureMatch(feature_name=feature_name, description=description, matches=[]))
+            continue
 
-            match_candidates.append(
-                {
-                    "file_path": scanned_file.path,
-                    "language": scanned_file.language,
-                    "score": round(score, 3),
-                    "snippet": scanned_file.snippet,
-                    "llm_summary": summary,
-                }
+        heuristic_candidates.sort(key=lambda pair: pair[1], reverse=True)
+
+        processed_matches: List[Dict[str, Any]] = []
+        candidate_slice: Sequence[Tuple[ScannedFile, float]] = heuristic_candidates[: max_matches * 4]
+        positive_matches: List[Dict[str, Any]] = []
+
+        for scanned_file, base_score in candidate_slice:
+            evaluation = llm_client.evaluate_feature_match(
+                feature,
+                file_path=scanned_file.path,
+                code_snippet=scanned_file.snippet,
             )
 
-        ordered_matches = sorted(match_candidates, key=lambda item: item["score"], reverse=True)[:max_matches]
+            evaluated_score = evaluation.score if evaluation.score is not None else base_score
+            final_score = round(evaluated_score, 3)
+            llm_summary: Optional[str] = evaluation.summary
+
+            entry = {
+                "file_path": scanned_file.path,
+                "language": scanned_file.language,
+                "score": final_score,
+                "snippet": scanned_file.snippet,
+                "llm_summary": llm_summary,
+            }
+
+            processed_matches.append(entry)
+
+            if evaluation.score is not None and evaluation.score >= 0.55:
+                positive_matches.append(entry)
+                if len(positive_matches) >= max_matches:
+                    break
+
+        if positive_matches:
+            ordered_matches = sorted(positive_matches, key=lambda item: item["score"], reverse=True)[:max_matches]
+        else:
+            ordered_matches = sorted(processed_matches, key=lambda item: item["score"], reverse=True)[:max_matches]
+
         results.append(FeatureMatch(feature_name=feature_name, description=description, matches=ordered_matches))
 
     return results

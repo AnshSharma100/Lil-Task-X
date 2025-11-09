@@ -1,11 +1,12 @@
 # Lil Task X
 
-Lil Task X is a prototype for scanning GitHub repositories, cross-referencing them with feature definitions, and producing AI-assisted mappings ready for product or Jira workflows. The backend is powered by FastAPI and integrates with NVIDIA's Nemotron model when available. A lightweight Streamlit client offers an interactive view over the generated mappings.
+Lil Task X is a prototype for scanning GitHub repositories, cross-referencing them with feature definitions, and producing AI-assisted mappings ready for product or Jira workflows. The backend is powered by FastAPI and integrates with NVIDIA's NIM service (default model `nvidia/nemotron-nano-12b-v2-vl`) when available. A lightweight Streamlit client offers an interactive view over the generated mappings.
 
 ## Prerequisites
 - Python 3.11+
 - Git
-- Optional: Docker & Docker Compose for containerised runs
+- Optional: NVIDIA NIM API key stored in `.env` as `NIM_API_KEY`
+- Optional: Docker & Docker Compose for containerised runs (local inference fallback)
 - A GitHub token stored in `.env` for private repository access
 
 ## Local Setup
@@ -16,10 +17,11 @@ Lil Task X is a prototype for scanning GitHub repositories, cross-referencing th
 	.\.venv\Scripts\Activate
 	pip install -r requirements.txt
 	```
-3. Open `.env` and add your token value:
+3. Open `.env` and add your secrets:
 	```powershell
 	notepad .env
 	# set GITHUB_TOKEN=ghp_your_token
+	# set NIM_API_KEY=nim_xxx   # only needed when enabling NIM analysis
 	```
 	When the API starts successfully it prints `✅ GitHub token loaded` once without revealing the secret.
 4. Launch the API:
@@ -31,16 +33,22 @@ Lil Task X is a prototype for scanning GitHub repositories, cross-referencing th
 	streamlit run client\frontend.py
 	```
 
-## Using Docker Compose
-The provided `docker-compose.yml` spins up both the vLLM Nemotron service and the FastAPI backend.
+## NVIDIA NIM Integration
+- By default the app targets the hosted NVIDIA NIM endpoint at `https://integrate.api.nvidia.com/v1`.
+- Set `NIM_API_KEY` (or `NVIDIA_API_KEY`) in `.env` to authorise requests.
+- Override the deployed model or endpoint by setting `NIM_MODEL` or `NIM_BASE_URL` respectively.
+- If the API key is omitted, the client falls back to a local OpenAI-compatible endpoint (`http://localhost:8000/v1`).
+
+## Using Docker Compose (optional)
+The provided `docker-compose.yml` remains available if you prefer running Nemotron locally via vLLM alongside the FastAPI backend.
 
 1. Download or mount the `NVIDIA-Nemotron-Nano-9B-v2` model inside `./NVIDIA-Nemotron-Nano-9B-v2`.
-2. Ensure `.env` exists with `GITHUB_TOKEN`.
+2. Ensure `.env` exists with `GITHUB_TOKEN` (and optionally `NIM_API_KEY` if mixing with hosted calls).
 3. Start the stack:
 	```powershell
 	docker compose up --build
 	```
-4. Access the API at `http://localhost:5000` and the vLLM endpoint at `http://localhost:8000/v1`.
+4. Access the API at `http://localhost:5000` and the local vLLM endpoint at `http://localhost:8000/v1`.
 
 ## Workflow Overview
 1. Paste a GitHub repository URL via the Streamlit UI or POST `/analyze_repo` with `{ "repo_url": "..." }`.
@@ -49,12 +57,10 @@ The provided `docker-compose.yml` spins up both the vLLM Nemotron service and th
 4. Retrieve the latest mapping by calling `GET /features_map` or exporting from the UI.
 
 ## Endpoints
-- `POST /analyze_repo`: Trigger a repository scan and feature mapping.
+- `POST /analyze_repo`: Trigger a repository scan and feature mapping (NIM evaluation runs automatically).
   ```json
   {
-	 "repo_url": "https://github.com/owner/repo",
-	 "branch": "main",
-	 "use_llm": true
+	 "repo_url": "https://github.com/owner/repo"
   }
   ```
 - `GET /features_map`: Fetch the cached feature-to-code mapping from the most recent analysis.
@@ -62,8 +68,8 @@ The provided `docker-compose.yml` spins up both the vLLM Nemotron service and th
 
 ## Frontend
 `client/frontend.py` hosts a Streamlit UI with:
-- Repository URL input and optional branch override
-- Toggle for Nemotron summaries
+- Repository URL input
+- Always-on NVIDIA NIM summaries layered on heuristic ranking
 - Expandable sections per feature with code snippets
 - JSON download of the generated mapping
 

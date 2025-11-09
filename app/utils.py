@@ -106,7 +106,7 @@ def _collect_labels(stories: Any) -> List[str]:
                 for label in story.get("labels", []) or []:
                     labels.add(str(label))
     return sorted(labels)
-def build_snippet(content: str, max_chars: int = 400) -> str:
+def build_snippet(content: str, max_chars: int = 5000) -> str:
     """Return a shortened snippet for previews."""
     content = content.strip()
     if len(content) <= max_chars:

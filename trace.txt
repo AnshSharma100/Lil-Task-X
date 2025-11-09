@@ -1,0 +1,46 @@
+== Info: Host integrate.api.nvidia.com:443 was resolved.
+== Info: IPv6: (none)
+== Info: IPv4: 99.83.136.103, 75.2.113.119
+== Info:   Trying 99.83.136.103:443...
+== Info: schannel: disabled automatic use of client certificate
+== Info: ALPN: curl offers http/1.1
+== Info: ALPN: server accepted http/1.1
+== Info: Connected to integrate.api.nvidia.com (99.83.136.103) port 443
+== Info: using HTTP/1.x
+=> Send header, 254 bytes (0xfe)
+0000: POST /v1/chat/completions HTTP/1.1
+0024: Host: integrate.api.nvidia.com
+0044: User-Agent: curl/8.14.1
+005d: Accept: */*
+006a: Authorization: Bearer nvapi-Uw1UPIbKRSaCSzOWl7MXAuOyoxeIky5fh3-B
+00aa: auV0v0MWsb524QhIagaQoE8zYRB-
+00c8: Content-Type: application/json
+00e8: Content-Length: 72
+00fc: 
+=> Send data, 72 bytes (0x48)
+0000: {model:nvidia/nemotron-nano-12b-v2,messages:[{role:user,content:
+0040: Hello}]}
+== Info: upload completely sent off: 72 bytes
+== Info: schannel: remote party requests renegotiation
+== Info: schannel: renegotiating SSL/TLS connection
+== Info: schannel: SSL/TLS connection renegotiated
+<= Recv header, 36 bytes (0x24)
+0000: HTTP/1.1 500 Internal Server Error
+<= Recv header, 37 bytes (0x25)
+0000: Date: Sun, 09 Nov 2025 10:00:37 GMT
+<= Recv header, 41 bytes (0x29)
+0000: Content-Type: text/plain; charset=utf-8
+<= Recv header, 20 bytes (0x14)
+0000: Content-Length: 81
+<= Recv header, 24 bytes (0x18)
+0000: Connection: keep-alive
+<= Recv header, 14 bytes (0xe)
+0000: Vary: Origin
+<= Recv header, 33 bytes (0x21)
+0000: X-Content-Type-Options: nosniff
+<= Recv header, 2 bytes (0x2)
+0000: 
+<= Recv data, 81 bytes (0x51)
+0000: failed to decode json body: invalid character 'm' looking for be
+0040: ginning of value.
+== Info: Connection #0 to host integrate.api.nvidia.com left intact
