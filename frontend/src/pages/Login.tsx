@@ -23,8 +23,6 @@ function Login() {
 
   return (
     <div className="login-container">
-      <div className="moving-light-1"></div>
-      <div className="moving-light-2"></div>
       <div className="login-frame">
         <div className="login-content">
           <h1 className="login-title">Welcome Back</h1>

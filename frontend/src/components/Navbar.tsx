@@ -4,22 +4,26 @@ import Logo from "./Logo";
 import "./Navbar.css";
 
 export default function Navbar() {
-  const { isAuthenticated, user, logout, isLoading } = useAuth0();
+  const { isAuthenticated, user, logout, isLoading, loginWithRedirect } = useAuth0();
   const navigate = useNavigate();
 
   if (isLoading) return null;
 
   const handleLogout = () => {
-    // Use localOnly to avoid Auth0 redirect URL configuration issues
-    // This logs out locally without redirecting to Auth0
+  
     logout({ 
       logoutParams: { 
         localOnly: true 
       } 
     });
-    // Navigate to login page
+
     navigate("/login", { replace: true });
   };
+
+  const handleLogin = () =>
+    loginWithRedirect({
+      appState: { returnTo: "/home" }, // matches your Login page’s intent
+    });
 
   return (
     <nav className="navbar">
@@ -44,7 +48,7 @@ export default function Navbar() {
             </div>
           </>
         ) : (
-          <button className="navbar-button" onClick={() => navigate("/login")}>
+          <button className="navbar-button" onClick={handleLogin}>
             Log in
           </button>
         )}

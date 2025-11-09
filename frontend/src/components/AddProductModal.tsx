@@ -112,16 +112,39 @@ export default function AddProductModal({ isOpen, onClose, onAnalyze }: AddProdu
           </div>
 
           <div className="form-group">
-            <label htmlFor="description">Description</label>
-            <textarea
-              id="description"
-              name="description"
-              value={formData.description}
-              onChange={handleInputChange}
-              required
-              rows={4}
-              className="form-textarea"
-            />
+            <label htmlFor="description">Budget (File Upload)</label>
+            <div className="file-upload-wrapper">
+              <input
+                type="file"
+                id="description"
+                name="description"
+                onChange={handleFileChange}
+                required
+                className="file-input"
+                accept=".txt,.doc,.docx,.pdf"
+              />
+              <label htmlFor="description" className="file-label">
+                {fileName || "Choose file..."}
+              </label>
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="description">Description (File Upload)</label>
+            <div className="file-upload-wrapper">
+              <input
+                type="file"
+                id="description"
+                name="description"
+                onChange={handleFileChange}
+                required
+                className="file-input"
+                accept=".txt,.doc,.docx,.pdf"
+              />
+              <label htmlFor="description" className="file-label">
+                {fileName || "Choose file..."}
+              </label>
+            </div>
           </div>
 
           <div className="form-group">

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import AddProductModal, { type ProductFormData } from "../components/AddProductModal";
+import { Link } from "react-router-dom";
 import "./Home.css";
 
 interface Product {
@@ -55,9 +56,6 @@ function Home() {
 
   return (
     <div className="home-container">
-      <div className="moving-light-1"></div>
-      <div className="moving-light-2"></div>
-      <div className="moving-light-3"></div>
       <div className="home-content">
         <div className="welcome-frame">
           <h1 className="welcome-title">
@@ -101,6 +99,11 @@ function Home() {
                       <span className="detail-value">{product.description}</span>
                     </div>
                   </div>
+                  <button className="view-details-button">
+                  <Link to={`/home/products/${product.id}`} className="view-details-btn">
+                    View Details
+                  </Link>
+                  </button>
                 </div>
               ))}
             </div>

@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar"
 import { Routes, Route, Navigate } from "react-router-dom"
 import ProtectedRoute from "./components/ProtectedRoute"
 import { useAuth0 } from "@auth0/auth0-react"
+import ProductDetails from "./pages/ProductDetails"
 
 import Home from "./pages/Home"
 import Login from "./pages/Login"
@@ -42,6 +43,14 @@ function App() {
               )
             } 
           />
+          <Route
+            path="/home/products/:id"
+            element={
+            <ProtectedRoute>
+                  <ProductDetails />
+                </ProtectedRoute>
+              }
+            />
         </Routes>
       </main>
     </>
