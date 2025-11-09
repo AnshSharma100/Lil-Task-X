@@ -1,0 +1,21 @@
+Name,Role,Experience_Level,Skills,Hourly_Rate_USD,Email
+Ava Chen,Senior Frontend Engineer,Senior,"frontend,react,typescript,uiux,css",85,serintemc@gmail.com
+Daniel Lee,Mid Backend Engineer,Mid,"backend,nodejs,python,api,databases",60,serintemc@gmail.com
+Isha Patel,Junior Fullstack Engineer,Junior,"react,javascript,html,css,basic-backend",35,serintemc@gmail.com
+Marcus Wright,Senior Backend Engineer,Senior,"backend,python,golang,architecture,databases",95,serintemc@gmail.com
+Sofia Martinez,DevOps Engineer,Mid,"ci/cd,aws,docker,kubernetes,monitoring",70,serintemc@gmail.com
+Ethan Brooks,Mid Frontend Engineer,Mid,"react,nextjs,typescript,css",55,serintemc@gmail.com
+Liam Turner,Senior Mobile Engineer,Senior,"flutter,swift,kotlin,mobile-architecture",90,serintemc@gmail.com
+Chloe Nguyen,Junior Web Developer,Junior,"html,css,javascript,bootstrap",30,serintemc@gmail.com
+Noah Kim,ML Engineer,Mid,"pytorch,tensorflow,mlops,data-processing",75,serintemc@gmail.com
+Layla Adams,Senior Data Engineer,Senior,"etl,spark,databases,cloud-data",100,serintemc@gmail.com
+Raj Kumar,Backend Engineer,Mid,"java,spring,postgres,rest-apis",65,serintemc@gmail.com
+Hannah Foster,Frontend Engineer,Junior,"react,css,figma",40,serintemc@gmail.com
+Dylan Cooper,Security Engineer,Senior,"security,auditing,penetration-testing,iam",105,serintemc@gmail.com
+Mia Zhang,Junior DevOps,Junior,"docker,linux,ci",32,serintemc@gmail.com
+Omar Haddad,Senior Fullstack Engineer,Senior,"react,nodejs,aws,architecture",110,serintemc@gmail.com
+Natalie Price,Mid Mobile Engineer,Mid,"flutter,dart,swift",58,serintemc@gmail.com
+Jaden Scott,Software Engineer,Junior,"python,java,testing",33,serintemc@gmail.com
+Emily Rivera,Cloud Engineer,Mid,"aws,terraform,containers",72,serintemc@gmail.com
+Isaac Davis,Senior API Engineer,Senior,"api,architecture,python,nodejs",98,serintemc@gmail.com
+Grace Lee,Junior ML Engineer,Junior,"python,ml,sklearn",38,serintemc@gmail.com
